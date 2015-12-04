@@ -7,14 +7,18 @@ using System.Xml.Linq;
 
 namespace MTConnectAnalyzer.Analysis
 {
+
+    // All events, e.g. PathPosition extend the MTConnectEvent
     public abstract class MTConnectEvent
     {
         public String name = "MTConnectEvent";
+        public int sequence = 0;
     }
 
+    // A 3D Point, used for the Coordinate system
     public class Point3
     {
-        float x, y, z;
+        public float x, y, z;
         public Point3(float x, float y, float z)
         {
             this.x = x;
@@ -35,6 +39,7 @@ namespace MTConnectAnalyzer.Analysis
         public PathPosition(XElement node)
         {
             name = "PathPosition";
+            sequence = int.Parse(node.Attribute("sequence").Value);
             coords = Point3.fromNodeValue(node.Value);
         }
     }

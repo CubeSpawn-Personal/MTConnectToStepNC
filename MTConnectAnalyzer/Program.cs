@@ -14,15 +14,15 @@ namespace MTConnectAnalyzer
         {
             if (args.Length == 0)
             {
-                throw new Exception("Not enough arguments supplied, please supply input MTConnect XML and optionally output stepnc path");
+                throw new Exception("Not enough arguments supplied, please supply input MTConnect XML and optionally both the template and output stepnc path");
             }
             Log.outputTo = Log.OutputMode.Console;
 
             Analysis.Analysis analysis = analyze(args[0]);
 
-            if (args.Length == 2)
+            if (args.Length == 3)
             {
-                generate(analysis, args[1]);
+                generate(analysis, args[1], args[2]);
             }
 
             Log.Stop();
@@ -31,9 +31,9 @@ namespace MTConnectAnalyzer
         {
             return new Analysis.Analysis(inputFilePath);
         }
-        public static void generate(Analysis.Analysis analysis, String outputPath)
+        public static void generate(Analysis.Analysis analysis,String templatePath, String outputPath)
         {
-            StepNC.StepNC.generateFromAnalysis(analysis, outputPath);
+            StepNC.StepNC.generateFromAnalysis(analysis, templatePath, outputPath);
         }
     }
 }
