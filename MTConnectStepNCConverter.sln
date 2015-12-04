@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTConnectStepNCConverter", "MTConnectStepNCConverter\MTConnectStepNCConverter.csproj", "{ACED286A-5396-4FAD-95AA-E9B6DF98C27B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTConnectAnalyzer", "MTConnectAnalyzer\MTConnectAnalyzer.csproj", "{019D3350-CF4A-4978-93B5-F8A84446C918}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACED286A-5396-4FAD-95AA-E9B6DF98C27B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACED286A-5396-4FAD-95AA-E9B6DF98C27B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACED286A-5396-4FAD-95AA-E9B6DF98C27B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACED286A-5396-4FAD-95AA-E9B6DF98C27B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019D3350-CF4A-4978-93B5-F8A84446C918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019D3350-CF4A-4978-93B5-F8A84446C918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019D3350-CF4A-4978-93B5-F8A84446C918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019D3350-CF4A-4978-93B5-F8A84446C918}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
