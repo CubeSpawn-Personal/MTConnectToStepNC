@@ -12,19 +12,28 @@ namespace MTConnectAnalyzer
     {
         static void Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length == 0)
             {
-                throw new Exception("Not enough arguments supplied, please supply input MTConnect XML");
+                throw new Exception("Not enough arguments supplied, please supply input MTConnect XML and optionally output stepnc path");
             }
             Log.outputTo = Log.OutputMode.Console;
 
-            analyze(args[0]);
+            Analysis.Analysis analysis = analyze(args[0]);
+
+            if (args.Length == 2)
+            {
+                generate(analysis, args[1]);
+            }
 
             Log.Stop();
         }
-        static Analysis.Analysis analyze(String inputFilePath)
+        public static Analysis.Analysis analyze(String inputFilePath)
         {
             return new Analysis.Analysis(inputFilePath);
+        }
+        public static void generate(Analysis.Analysis analysis, String outputPath)
+        {
+            StepNC.StepNC.generateFromAnalysis(analysis, outputPath);
         }
     }
 }

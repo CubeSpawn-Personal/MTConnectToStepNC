@@ -14,7 +14,7 @@ namespace MTConnectAnalyzer.Analysis
 {
     public class Analysis
     {
-        List<MTConnectEvent> timeline = new List<MTConnectEvent>();
+        public List<MTConnectEvent> timeline = new List<MTConnectEvent>();
         public Analysis(String pathToXML)
         {
             // Read and deserialize the MTConnect Data
@@ -46,24 +46,32 @@ namespace MTConnectAnalyzer.Analysis
             }).ToList();
 
             int unknownElements = 0;
+            int parseErrors = 0;
 
             foreach (XElement elm in sequenceElements)
             {
-                int seq = Int32.Parse(elm.Attribute("sequence").Value);
-                //Log.Write("SEQ" + seq + " : " + elm.Name);
-                if (elm.Name.LocalName.Equals("PathPosition"))
+                try {
+                    int seq = Int32.Parse(elm.Attribute("sequence").Value);
+                    //Log.Write("SEQ" + seq + " : " + elm.Name);
+                    if (elm.Name.LocalName.Equals("PathPosition"))
+                    {
+                        timeline.Add(new PathPosition(elm));
+                    }
+                    else
+                    {
+                        Log.Write("[" + seq + "] Unregistered Event: " + elm.Name.LocalName);
+                        unknownElements++;
+                    }
+                }catch(Exception e)
                 {
-                    timeline.Add(new PathPosition(elm));
-                }
-                else
-                {
-                    Log.Write("[" + seq + "] Unregistered Event: " + elm.Name.LocalName);
-                    unknownElements++;
+                    parseErrors++;
+                    Log.Write("[" + elm.Attribute("sequence").Value + "] Parse Error " + e);
                 }
             }
             Log.Write("XML Parsing Complete");
             Log.Write("[" + timeline.Count((e) => e.name == "PathPosition") + "] PathPositions");
             Log.Write("[" + unknownElements + "] Unregistered Events ("+ (1 - ((float)unknownElements) / sequenceElements.Count) * 100+"% Coverage)");
+            Log.Write("[" + parseErrors + "] Parse Errors ");
         }
     }
 }
