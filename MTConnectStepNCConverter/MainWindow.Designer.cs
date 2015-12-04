@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.info = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.input_button = new System.Windows.Forms.Button();
@@ -37,16 +37,18 @@
             this.analyze = new System.Windows.Forms.Button();
             this.input_field = new System.Windows.Forms.TextBox();
             this.output_field = new System.Windows.Forms.TextBox();
+            this.analysisWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
-            // textBox1
+            // info
             // 
-            this.textBox1.Location = new System.Drawing.Point(271, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(612, 373);
-            this.textBox1.TabIndex = 0;
+            this.info.Location = new System.Drawing.Point(271, 12);
+            this.info.Multiline = true;
+            this.info.Name = "info";
+            this.info.ReadOnly = true;
+            this.info.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.info.Size = new System.Drawing.Size(612, 373);
+            this.info.TabIndex = 0;
             // 
             // openFileDialog1
             // 
@@ -90,6 +92,7 @@
             this.analyze.TabIndex = 4;
             this.analyze.Text = "Analyze MTConnect Data";
             this.analyze.UseVisualStyleBackColor = true;
+            this.analyze.Click += new System.EventHandler(this.analyzeMTConnect);
             // 
             // input_field
             // 
@@ -107,6 +110,13 @@
             this.output_field.Size = new System.Drawing.Size(100, 20);
             this.output_field.TabIndex = 6;
             // 
+            // analysisWorker
+            // 
+            this.analysisWorker.WorkerReportsProgress = true;
+            this.analysisWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.analysisWorker_DoWork);
+            this.analysisWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.analysisWorker_ProgressChanged);
+            this.analysisWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.analysisWorker_RunWorkerCompleted);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,7 +128,7 @@
             this.Controls.Add(this.generate);
             this.Controls.Add(this.output_button);
             this.Controls.Add(this.input_button);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.info);
             this.Name = "MainWindow";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -128,7 +138,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox info;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button input_button;
@@ -137,6 +147,7 @@
         private System.Windows.Forms.Button analyze;
         private System.Windows.Forms.TextBox input_field;
         private System.Windows.Forms.TextBox output_field;
+        private System.ComponentModel.BackgroundWorker analysisWorker;
     }
 }
 

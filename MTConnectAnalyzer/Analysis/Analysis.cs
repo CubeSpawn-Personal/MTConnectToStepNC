@@ -17,6 +17,7 @@ namespace MTConnectAnalyzer.Analysis
         public List<MTConnectEvent> timeline = new List<MTConnectEvent>();
         public Analysis(String pathToXML)
         {
+            Log.Write("Running MTConnect Analysis");
             // Read and deserialize the MTConnect Data
             XmlSerializer serializer = new XmlSerializer(typeof(MTConnectStreamsType));
             Stream reader = new FileStream(pathToXML, FileMode.Open);
@@ -48,6 +49,7 @@ namespace MTConnectAnalyzer.Analysis
             int unknownElements = 0;
             int parseErrors = 0;
 
+            int i = 0;
             foreach (XElement elm in sequenceElements)
             {
                 try {
@@ -59,7 +61,7 @@ namespace MTConnectAnalyzer.Analysis
                     }
                     else
                     {
-                        Log.Write("[" + seq + "] Unregistered Event: " + elm.Name.LocalName);
+                       // Log.Write("[" + seq + "] Unregistered Event: " + elm.Name.LocalName);
                         unknownElements++;
                     }
                 }catch(Exception e)

@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace MTConnectAnalyzer
 {
-    class Log
+    public abstract class LogWriter
     {
-        internal enum OutputMode { Console, Debug, Writer, Nothing}
-        internal static OutputMode outputTo = OutputMode.Debug;
-        internal static System.IO.TextWriter writer;
-        internal static void Write(object str)
+        public abstract void Write(object o);
+    }
+
+    public class Log
+    {
+        public enum OutputMode { Console, Debug, Writer, LogWriter, Nothing};
+        public static OutputMode outputTo = OutputMode.Debug;
+        public static System.IO.TextWriter writer;
+        public static LogWriter logwriter;
+        public static void Write(object str)
         {
             if (outputTo == OutputMode.Console)
             {
@@ -22,9 +28,12 @@ namespace MTConnectAnalyzer
             }else if (outputTo == OutputMode.Writer)
             {
                 writer.WriteLine(outputTo);
+            }else if (outputTo == OutputMode.LogWriter)
+            {
+                logwriter.Write(str);
             }
         }
-        internal static void Stop()
+        public static void Stop()
         {
             if (outputTo == OutputMode.Console)
             {

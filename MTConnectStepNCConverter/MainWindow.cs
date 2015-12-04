@@ -7,13 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MTConnectAnalyzer.Analysis;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace MTConnectStepNCConverter
 {
     public partial class MainWindow : Form
     {
-        String mtconnectData;
+        String inputPath;
         String writeLocationPath;
+        Analysis analysis;
         public MainWindow()
         {
             InitializeComponent();
@@ -22,7 +26,7 @@ namespace MTConnectStepNCConverter
         private void browseForMTConnectFile(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
-            mtconnectData = new System.IO.StreamReader(openFileDialog1.OpenFile()).ReadToEnd();
+            inputPath = openFileDialog1.FileName;
             input_field.Text = openFileDialog1.FileName;
         }
 
@@ -31,6 +35,43 @@ namespace MTConnectStepNCConverter
             saveFileDialog1.ShowDialog();
             writeLocationPath = saveFileDialog1.FileName;
             output_field.Text = saveFileDialog1.FileName;
+        }
+
+        private void analyzeMTConnect(object sender, EventArgs e)
+        {
+            analysisWorker.RunWorkerAsync();
+        }
+
+        private void analysisWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MTConnectAnalyzer.Log.outputTo = MTConnectAnalyzer.Log.OutputMode.LogWriter;
+            MTConnectAnalyzer.Log.logwriter = new TextBoxLogWriter(sender as BackgroundWorker);
+            analysis = new Analysis(inputPath);
+        }
+
+        private void analysisWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            info.AppendText(Environment.NewLine + e.UserState);
+        }
+
+        private void analysisWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+    }
+
+
+    internal class TextBoxLogWriter : MTConnectAnalyzer.LogWriter
+    {
+        BackgroundWorker worker;
+        internal TextBoxLogWriter(BackgroundWorker w)
+        {
+            this.worker = w;
+        }
+
+        public override void Write(object str)
+        {
+            worker.ReportProgress(0, str.ToString());
         }
     }
 }
