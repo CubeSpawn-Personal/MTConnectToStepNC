@@ -75,5 +75,10 @@ namespace MTConnectAnalyzer.Analysis
             Log.Write("[" + unknownElements + "] Unregistered Events ("+ (1 - ((float)unknownElements) / sequenceElements.Count) * 100+"% Coverage)");
             Log.Write("[" + parseErrors + "] Parse Errors ");
         }
+
+        public void outputStepNC(string templatePath, string outputPath)
+        {
+            StepNC.StepNC.generateFromAnalysis(this, templatePath, outputPath);
+        }
     }
 }
