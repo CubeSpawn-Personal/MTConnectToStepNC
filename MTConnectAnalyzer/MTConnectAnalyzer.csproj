@@ -51,9 +51,9 @@
     <StartupObject>MTConnectAnalyzer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="stepnc_x64, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1cb0c76fde15bbda, processorArchitecture=AMD64">
+    <Reference Include="stepnc_x86, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1cb0c76fde15bbda, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\STEP Tools\STEP-NC Machine\stepnc_x64.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\STEP Tools\STEP-NC Machine\stepnc_x86.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
